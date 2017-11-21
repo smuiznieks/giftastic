@@ -19,6 +19,7 @@ $('#addButton').on('click', function(event) {
 })
 
 function showGifs() {
+	$('#gifs').empty();
 	var searchShow = $(this).attr('data-name');
 	var queryUrl = 'https://api.giphy.com/v1/gifs/search?api_key=LlJgG7J6XDVPjYjF5Ejp51Qu9w4Edb76&q=' + searchShow + '&limit=10&offset=0&rating=PG&lang=en';
 	$.ajax({
@@ -28,9 +29,9 @@ function showGifs() {
 		console.log(response);
 		for (i = 0; i < response.data.length; i++) {
 			var gif = response.data[i];
-			console.log(gif.bitly_gif_url);
+			console.log(gif.embed_url);
 			console.log(gif.rating);
-			$('#gifs').append('<iframe src="' + gif.bitly_gif_url + '"></iframe>')
+			$('#gifs').append('<iframe src="' + gif.embed_url + '"></iframe>')
 		}
 	}).fail(function(err) {
 		throw err;
