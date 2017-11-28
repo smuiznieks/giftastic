@@ -4,6 +4,8 @@ function createButtons() {
 	$('#buttons').empty();
 	for (i = 0; i < tvShows.length; i++) {
 		var button = $('<button>');
+		button.attr('type', 'button');
+		button.attr('class', 'btn btn-default')
 		button.attr('id','tvShowButton');
 		button.attr('data-name', tvShows[i]);
 		button.text(tvShows[i]);
@@ -18,6 +20,22 @@ $('#addButton').on('click', function(event) {
 	createButtons();
 })
 
+function animateGifs() {
+	console.log('click');
+	var img = $(this);
+	console.log(img);
+    var state = img.attr('data-state')
+    console.log(state);
+	if (state === 'still') {
+		img.attr('src', img.attr('data-animate'));
+        img.attr('data-state', 'animate');
+	}
+	if (state === 'animate') {
+      img.attr('src', img.attr('data-still'));
+      img.attr('data-state', 'still');
+    }
+}
+
 function showGifs() {
 	$('#gifs').empty();
 	var searchShow = $(this).attr('data-name');
@@ -29,9 +47,19 @@ function showGifs() {
 		console.log(response);
 		for (i = 0; i < response.data.length; i++) {
 			var gif = response.data[i];
-			console.log(gif.embed_url);
+			console.log(gif.images.fixed_height_still.url);
+			console.log(gif.images.fixed_height.url);
 			console.log(gif.rating);
-			$('#gifs').append('<iframe src="' + gif.embed_url + '"></iframe>')
+			var newDiv = $('<div>');
+			newDiv.attr('class', 'col-md-6');
+			var newImage = $('<img src="' + gif.images.fixed_height_still.url + '"/>');
+			newImage.attr('id', 'clickToAnimate');
+			newImage.attr('data-state', 'still');
+			newImage.attr('data-still', gif.images.fixed_height_still.url);
+			newImage.attr('data-animate', gif.images.fixed_height.url);
+			newDiv.append(newImage);
+			newDiv.append('<h6>Rating: ' + gif.rating + '</h6>');
+			$('#gifs').append(newDiv);
 		}
 	}).fail(function(err) {
 		throw err;
@@ -41,3 +69,4 @@ function showGifs() {
 
 $(document).on('click', '#tvShowButton', showGifs);
 createButtons();
+$(document).on('click', '#clickToAnimate', animateGifs);

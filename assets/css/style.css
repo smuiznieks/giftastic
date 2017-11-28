@@ -1,0 +1,38 @@
+body {
+	background-image: url(../images/black_thread.png);
+}
+
+#tvShowButton {
+	margin: 5px;
+}
+
+#gifs, #createButton {
+	margin-top: 20px;
+}
+
+#addButton {
+	margin-top: 10px;
+}
+
+h1 {
+	font-size: 54px;
+	margin: 20px;
+}
+
+h1, h3, h6 {
+	color: #70C1B3;
+	font-family: 'Carter One', cursive;
+}
+
+#addButton, #tvShowButton {
+	font-family: 'Open Sans', sans-serif;
+}
+
+#tvShowButton {
+	text-transform: capitalize;
+}
+
+#background, #createButton {
+	padding: 0px 20px 20px 20px;
+	margin: 20px;
+}
